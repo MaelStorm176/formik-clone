@@ -1,7 +1,22 @@
 <script setup>
-
 import Field from "./components/Field.vue";
 import Formik from "./components/Formik.vue";
+
+const onSubmit = (values) => {
+  console.log(values);
+};
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = "Invalid email address";
+  } else if (!values.password) {
+    errors.password = "Required";
+  }
+  return errors;
+};
 </script>
 
 <template>
@@ -11,7 +26,7 @@ import Formik from "./components/Formik.vue";
 
   <main>
     <Formik
-      :initialValues="{ name: '', email: '' }"
+      :initialValues="{ name: '', email: 'jamin.mael@orange.fr', password: '', phone: '0632542312', check: false, select: '1' }"
       :onSubmit="onSubmit"
       :validate="validate"
     >
