@@ -1,21 +1,13 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import Field from './components/Field.vue'
+
 </script>
 
 <template>
-  <Field as="input" name="name" />
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <h1>My App</h1>
   </header>
 
   <main>
-    <TheWelcome />
   </main>
 </template>
 
