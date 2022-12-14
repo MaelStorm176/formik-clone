@@ -11,21 +11,31 @@ import Formik from "./components/Formik.vue";
 
   <main>
     <Formik
-      :initialValues="{ name: '', email: '' }"
+      :initialValues="{ name: 'Tamer', email: 'tamer@tamer.fr' }"
+      :validate="values => {
+        const errors = {};
+        if (!values.name) {
+          errors.name = 'Required';
+        } else if (values.name.length > 15) {
+          errors.name = 'Must be 15 characters or less';
+        }
+        return errors;
+      }"
       :onSubmit="onSubmit"
-      :validate="validate"
     >
-      <Field name="name" as="text" label="Name"/>
-      <Field name="email" as="email" label="Email" />
-      <Field name="password" as="password" label="Password" />
-      <Field name="phone" as="tel" label="Phone" />
-      <Field name="check" as="checkbox" label="Check" />
-      <Field name="select" as="select" label="Select">
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </Field>
-      <button type="submit">Submit</button>
+      <form @submit.prevent="handleSubmit">
+        <Field name="name" as="text" label="Name"/>
+        <Field name="email" as="email" label="Email" />
+        <Field name="password" as="password" label="Password" />
+        <Field name="phone" as="tel" label="Phone" />
+        <Field name="check" as="checkbox" label="Check" />
+        <Field name="select" as="select" label="Select">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </Field>
+        <button type="submit">Submit</button>
+      </form>
     </Formik>
   </main>
 </template>

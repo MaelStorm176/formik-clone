@@ -1,5 +1,5 @@
 <script setup>
-// declare props
+
 const props = defineProps({
   initialValues: {
     type: Object,
@@ -15,12 +15,19 @@ const props = defineProps({
   },
 });
 
+// if form is submitted, validate the form
+const handleSubmit = () => {
+  validate();
+};
+
+// execute function onSubmit if handleSubmit is called
+const onSubmit = () => {
+  props.onSubmit(values);
+};
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit">
-    <slot />
-  </form>
+    <slot :validate="handleSubmit"/>
 </template>
 
 <style scoped>
