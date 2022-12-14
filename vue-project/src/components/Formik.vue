@@ -19,7 +19,7 @@ const props = defineProps({
 
 <template>
   <form @submit.prevent="onSubmit">
-    <slot :values="values" />
+    <slot />
   </form>
 </template>
 

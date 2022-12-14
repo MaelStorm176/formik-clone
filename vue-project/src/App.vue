@@ -1,5 +1,7 @@
 <script setup>
 
+import Field from "./components/Field.vue";
+import Formik from "./components/Formik.vue";
 </script>
 
 <template>
@@ -8,6 +10,23 @@
   </header>
 
   <main>
+    <Formik
+      :initialValues="{ name: '', email: '' }"
+      :onSubmit="onSubmit"
+      :validate="validate"
+    >
+      <Field name="name" as="text" label="Name"/>
+      <Field name="email" as="email" label="Email" />
+      <Field name="password" as="password" label="Password" />
+      <Field name="phone" as="tel" label="Phone" />
+      <Field name="check" as="checkbox" label="Check" />
+      <Field name="select" as="select" label="Select">
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </Field>
+      <button type="submit">Submit</button>
+    </Formik>
   </main>
 </template>
 
