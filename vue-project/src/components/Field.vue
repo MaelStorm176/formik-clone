@@ -1,7 +1,6 @@
 <script setup>
 import {inject} from "vue";
 
-
 const props = defineProps({
   name: {
     type: String,
@@ -12,23 +11,21 @@ const props = defineProps({
     required: false,
     default: 'text',
   },
-  value: {
+  modelValue: {
     type: String,
     required: false,
-  }
+    default: '',
+  },
 });
 
-const values = inject('values', {});
+const {values, updateSingleValue} = inject('values');
 
-const handleChange = (e) => {
-  values[props.name] = e.target.value;
-};
 </script>
 
 <template>
-    <component :is="as" :name="name" :value="values[name]" @input="handleChange">
-      <slot />
-    </component>
+  <component :is="as" :name="name" @input="updateSingleValue(name, $event.target.value)">
+    <slot />
+  </component>
 </template>
 
 <style scoped>
