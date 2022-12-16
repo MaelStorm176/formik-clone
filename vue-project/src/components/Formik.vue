@@ -1,5 +1,4 @@
 <script setup>
-// declare props
 import {provide, reactive} from "vue";
 
 const props = defineProps({
@@ -21,9 +20,8 @@ const props = defineProps({
   },
 });
 
-// provide initial values to child components
 const values = reactive(props.initialValues);
-provide('values', values);
+provide('values', props.initialValues);
 
 // provide errors to child components
 const errors = reactive(props.initialErrors || {});
@@ -35,6 +33,7 @@ const handleSubmit = (e) => {
     const errorsValues = props.validate(values);
     if (Object.keys(errorsValues).length > 0) {
       Object.assign(errors, errorsValues);
+      console.log(errors);
       return;
     }
   }
