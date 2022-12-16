@@ -1,8 +1,6 @@
 <script setup>
-
 import {inject} from "vue";
 
-const allowedInputTypes = ["text", "email", "password", "tel", "number", "checkbox"];
 const props = defineProps({
   name: {
     type: String,
@@ -13,29 +11,21 @@ const props = defineProps({
     required: false,
     default: 'text',
   },
-  value: {
+  modelValue: {
     type: String,
     required: false,
-  },
-  label: {
-    type: String,
-    required: false,
+    default: '',
   },
 });
 
-const values = inject('values');
-const errors = inject('errors');
+const {values, updateSingleValue} = inject('values');
+
 </script>
 
 <template>
-  <div>
-    <label v-if="label" :for="name">{{ label }}</label>
-    <input v-if="allowedInputTypes.includes(as)" :id="name" :name="name" :type="as" :value="values[name]" @input="$emit('input', $event.target.value)"/>
-    <component :is="as" v-else :name="name" :value="values[name]" @input="$emit('input', $event)">
-      <slot />
-    </component>
-    <small v-if="errors && errors[name]" style="color: red">{{ errors[name] }}</small>
-  </div>
+  <component :is="as" :name="name" @input="updateSingleValue(name, $event.target.value)">
+    <slot />
+  </component>
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <script setup>
-// declare props
-import {provide, reactive} from "vue";
+import {provide, reactive, toRefs} from "vue";
 
 const props = defineProps({
   initialValues: {
@@ -21,20 +20,26 @@ const props = defineProps({
   },
 });
 
-// provide initial values to child components
 const values = reactive(props.initialValues);
-provide('values', values);
+
+const updateSingleValue = (name, value) => {
+  values[name] = value;
+};
+
+provide('values', {...toRefs(values), updateSingleValue});
 
 // provide errors to child components
 const errors = reactive(props.initialErrors || {});
 provide('errors', errors);
 
 const handleSubmit = (e) => {
+  console.log(values, props.initialValues);
   e.preventDefault();
   if (props.validate) {
     const errorsValues = props.validate(values);
     if (Object.keys(errorsValues).length > 0) {
       Object.assign(errors, errorsValues);
+      console.log(errors);
       return;
     }
   }
